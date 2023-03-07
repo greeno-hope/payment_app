@@ -1,10 +1,11 @@
 package uk.ac.hope.csc.hostel.management.system;
 
+import java.io.Serializable;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentList {
+public class PaymentList implements Serializable {
 
     // For now - may change
     List<Payment> payments;
