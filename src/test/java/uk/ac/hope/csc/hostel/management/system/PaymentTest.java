@@ -22,15 +22,8 @@ class PaymentTest {
     }
 
     @Test
-    void setAmount() {
-    }
-
-    @Test
     void getMonth() {
-    }
-
-    @Test
-    void setMonth() {
+        assertEquals(Month.SEPTEMBER, payment.getMonth());
     }
 
     @Test
