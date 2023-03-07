@@ -47,12 +47,19 @@ class PaymentListTest {
     }
 
     @Test
+    void testAllPaymentsRecieved() {
+        assertTrue(pl.allPaymentsRecieved(Month.JANUARY));
+        assertFalse(pl.allPaymentsRecieved(Month.APRIL));
+    }
+
+    @Test
     void find() {
         assertEquals(Month.SEPTEMBER, pl.find(Month.SEPTEMBER).getMonth());
     }
 
     @Test
     void total() {
+        assertEquals(1002.50, pl.total());
     }
 
 }

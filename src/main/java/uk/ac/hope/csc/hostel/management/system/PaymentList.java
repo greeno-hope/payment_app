@@ -84,4 +84,30 @@ public class PaymentList {
         return ret;
     }
 
+    /**
+     * Function assumes that all students start paying rent in September
+     * and the function asserts that all payments from September up to and including
+     * the month argument are complete
+     * @param month the month up to which to search/test
+     * @return true if all payments have been made, false otherwise
+     */
+    public boolean allPaymentsRecieved(Month month) {
+        boolean ret = false;
+        switch (month) {
+            case SEPTEMBER -> ret = payments.size() == 1;
+            case OCTOBER -> ret = payments.size() == 2;
+            case NOVEMBER -> ret = payments.size() == 3;
+            case DECEMBER -> ret = payments.size() == 4;
+            case JANUARY -> ret = payments.size() == 5;
+            case FEBRUARY -> ret = payments.size() == 6;
+            case MARCH -> ret = payments.size() == 7;
+            case APRIL -> ret = payments.size() == 8;
+            case MAY -> ret = payments.size() == 9;
+            case JUNE -> ret = payments.size() == 10;
+            case JULY -> ret = payments.size() == 11;
+            case AUGUST -> ret = payments.size() == 12;
+        }
+        return ret;
+    }
+
 }
