@@ -8,8 +8,6 @@ public class Main {
 
         HManagementSystem hms = new HManagementSystem();
 
-        String whereAmI = System.getProperty("user.dir");
-
         // Start up system from pre-generated fake data or
         // load previously saved state (command line argument)
         if(args[0].equals("-init")) {
