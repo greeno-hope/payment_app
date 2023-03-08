@@ -1,5 +1,6 @@
 package uk.ac.hope.csc.hostel.management.system;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 public class Main {
@@ -10,8 +11,12 @@ public class Main {
 
         // Start up system from pre-generated fake data or
         // load previously saved state (command line argument)
-        if(args[0].equals("-init")) {
-            hms.init();
+        if(args.length > 0) {
+            if (args[0].equals("-init")) {
+                hms.init();
+            } else {
+                throw new InvalidParameterException("Only -init supported as a command line argument");
+            }
         } else {
             hms.loadState();
         }
