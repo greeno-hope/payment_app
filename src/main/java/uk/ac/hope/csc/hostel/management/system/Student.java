@@ -1,8 +1,6 @@
 package uk.ac.hope.csc.hostel.management.system;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -17,10 +15,10 @@ public class Student implements Serializable, Comparable {
     private String lname;
 
     // roomNumber is a positive int greater than 0
-    private int roomNumber = 0;
+    private Room room = null;
 
-    // The list of payments that this student had made
-    private List<Payment> payments;
+    // The list of paymentsList that this student had made
+    private Payments payments;
 
     /**
      * Constructor for a Student object.
@@ -36,7 +34,7 @@ public class Student implements Serializable, Comparable {
         this.sid = sid;
         this.fname = fname;
         this.lname = lname;
-        payments = new ArrayList<>();
+        payments = new Payments();
     }
 
     /**
@@ -67,24 +65,32 @@ public class Student implements Serializable, Comparable {
      *
      * @return
      */
-    public int getRoomNumber() {
-        return roomNumber;
+    public Room getRoom() {
+        return room;
     }
 
     /**
-     * Sets a new roomNumber for a Student.
-     * @param roomNumber the room to be assigned to the Student.
+     *
+     * @param room
      */
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public List<Payment> getPayments() {
+    /**
+     *
+     * @return
+     */
+    public Payments getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
+    /**
+     *
+     * @param payment
+     */
+    public void addPayment(Payment payment) {
+        payments.addPayment(payment);
     }
 
     @Override
@@ -93,7 +99,7 @@ public class Student implements Serializable, Comparable {
                 "sid=" + sid +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
-                ", roomNumber=" + roomNumber +
+                ", roomNumber=" + room.getRoomNumber() +
                 ", payments=" + payments +
                 '}';
     }

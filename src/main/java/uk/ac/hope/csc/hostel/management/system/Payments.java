@@ -5,16 +5,16 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentList implements Serializable {
+public class Payments implements Serializable {
 
     // For now - may change
-    List<Payment> payments;
+    List<Payment> paymentsList;
 
     /**
      * No argument constructor just creates the ArrayList
      */
-    public PaymentList() {
-        this.payments = new ArrayList<>();
+    public Payments() {
+        this.paymentsList = new ArrayList<>();
     }
 
     /**
@@ -22,20 +22,20 @@ public class PaymentList implements Serializable {
      * @param payment the payment to be added.
      */
     public void addPayment(Payment payment) {
-        for(Payment p : payments) {
+        for(Payment p : paymentsList) {
             if(p.getMonth() == payment.getMonth()) {
                 throw new IllegalArgumentException("Duplicate payment for month " + payment.getMonth());
             }
         }
-        payments.add(payment);
+        paymentsList.add(payment);
     }
 
     /**
      * Retrieves the payments List
      * @return the A List interface over the payments ArrayList.
      */
-    public List<Payment> getPayments() {
-        return payments;
+    public List<Payment> getPaymentsList() {
+        return paymentsList;
     }
 
     /**
@@ -43,7 +43,7 @@ public class PaymentList implements Serializable {
      * @return
      */
     public int getPaymentCount() {
-        return payments.size();
+        return paymentsList.size();
     }
 
     /**
@@ -53,7 +53,7 @@ public class PaymentList implements Serializable {
     @Override
     public String toString() {
         return "PaymentList{" +
-                "payments=" + payments +
+                "payments=" + paymentsList +
                 '}';
     }
 
@@ -64,7 +64,7 @@ public class PaymentList implements Serializable {
      */
     public Payment find(Month month) {
         Payment ret = null;
-        for(Payment p : payments) {
+        for(Payment p : paymentsList) {
             if (month == p.getMonth()) {
                 ret = p;
                 break;
@@ -79,7 +79,7 @@ public class PaymentList implements Serializable {
      */
     public double total() {
         double ret = 0;
-        for(Payment p : payments) {
+        for(Payment p : paymentsList) {
             ret += p.getAmount();
         }
         return ret;
@@ -95,18 +95,18 @@ public class PaymentList implements Serializable {
     public boolean allPaymentsRecieved(Month month) {
         boolean ret = false;
         switch (month) {
-            case SEPTEMBER -> ret = payments.size() == 1;
-            case OCTOBER -> ret = payments.size() == 2;
-            case NOVEMBER -> ret = payments.size() == 3;
-            case DECEMBER -> ret = payments.size() == 4;
-            case JANUARY -> ret = payments.size() == 5;
-            case FEBRUARY -> ret = payments.size() == 6;
-            case MARCH -> ret = payments.size() == 7;
-            case APRIL -> ret = payments.size() == 8;
-            case MAY -> ret = payments.size() == 9;
-            case JUNE -> ret = payments.size() == 10;
-            case JULY -> ret = payments.size() == 11;
-            case AUGUST -> ret = payments.size() == 12;
+            case SEPTEMBER -> ret = paymentsList.size() == 1;
+            case OCTOBER -> ret = paymentsList.size() == 2;
+            case NOVEMBER -> ret = paymentsList.size() == 3;
+            case DECEMBER -> ret = paymentsList.size() == 4;
+            case JANUARY -> ret = paymentsList.size() == 5;
+            case FEBRUARY -> ret = paymentsList.size() == 6;
+            case MARCH -> ret = paymentsList.size() == 7;
+            case APRIL -> ret = paymentsList.size() == 8;
+            case MAY -> ret = paymentsList.size() == 9;
+            case JUNE -> ret = paymentsList.size() == 10;
+            case JULY -> ret = paymentsList.size() == 11;
+            case AUGUST -> ret = paymentsList.size() == 12;
         }
         return ret;
     }

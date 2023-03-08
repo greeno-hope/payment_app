@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Represents a Room in the HManagementSystem
  */
-public class Room implements Serializable, Comparable {
+public class Room implements Serializable, Comparable<Room> {
 
     //
     public enum ROOM_TYPE {
@@ -20,7 +20,7 @@ public class Room implements Serializable, Comparable {
 
     private double rate;
     private ROOM_TYPE type;
-    private int sid = 0;
+    private Student student = null;
 
     /**
      * Constructor for a room
@@ -68,35 +68,22 @@ public class Room implements Serializable, Comparable {
 
     /**
      *
-     * @param type
-     */
-    public void setType(ROOM_TYPE type) {
-        this.type = type;
-    }
-
-    /**
-     * Returns the student ID (sid) of teh student occupying this room.
-     * @return a positive sid if the room is occupied else 0.
-     */
-    public int getSid() {
-        return sid;
-    }
-
-    /**
-     *
-     * @param sid
-     */
-    public void setSid(int sid) {
-        this.sid = sid;
-    }
-
-    /**
-     *
-     * @param o the object to be compared.
      * @return
      */
+    public Student getStudent() {
+        return student;
+    }
+
+    /**
+     *
+     * @param student
+     */
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Room o) {
         Room other = (Room) o;
         if( roomNumber > other.roomNumber) {
             return 1;
@@ -104,4 +91,15 @@ public class Room implements Serializable, Comparable {
             return -1;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "roomNumber=" + roomNumber +
+                ", rate=" + rate +
+                ", type=" + type +
+                ", student=" + (student != null? student.getSid() : null) +
+                '}';
+    }
+
 }

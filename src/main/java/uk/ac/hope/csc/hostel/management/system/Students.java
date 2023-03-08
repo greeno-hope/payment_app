@@ -6,15 +6,18 @@ import java.util.*;
 /**
  * Represents a collection of Students in the HLManagementSystem
  */
-public class StudentList implements Serializable {
+public class Students implements Serializable {
 
-    private Map<Integer, Student> students;
+    /**
+     * Map of student id to Student object.
+     */
+    private Map<Integer, Student> studentMap;
 
     /**
      *  No args constructor
      */
-    public StudentList() {
-        students = new HashMap<>();
+    public Students() {
+        studentMap = new HashMap<>();
     }
 
     /**
@@ -22,7 +25,7 @@ public class StudentList implements Serializable {
      * @param s a Student object to add.
      */
     public void addStudent(Student s) {
-        students.put(s.getSid(), s);
+        studentMap.put(s.getSid(), s);
     }
 
     /**
@@ -31,7 +34,7 @@ public class StudentList implements Serializable {
      * @return
      */
     public boolean containsStudent(int sid) {
-        if (students.containsKey(sid)) {
+        if (studentMap.containsKey(sid)) {
             return true;
         } else {
             return false;
@@ -39,25 +42,19 @@ public class StudentList implements Serializable {
     }
 
     /**
-     * Removes a student from the Students collection.
-     * @param sid a Student sid to remove.
-     * @return true if the student was removed, false otherwise.
+     * Return the Map sid -> Student
+     * @return the Map<Student>
      */
-    public boolean removeStudent(int sid) {
-        boolean ret = false;
-        if(students.containsKey(sid)) {
-            ret = true;
-            students.remove(sid);
-        }
-        return ret;
+    public Map<Integer, Student> getStudentMap() {
+        return studentMap;
     }
 
     /**
      * Returns a list of students in SID order
      * @return a sorted Student list
      */
-    public List<Student> getStudents() {
-        List<Student> studentsAsList = new ArrayList<>(students.values());
+    public List<Student> getStudentsOrderBySid() {
+        List<Student> studentsAsList = new ArrayList<>(studentMap.values());
         return studentsAsList.stream().sorted().toList();
     }
 
@@ -65,8 +62,8 @@ public class StudentList implements Serializable {
      * Returns a list of Students ordered alphabetically by last name
      * @return a sorted List of Students
      */
-    public List<Student> getStudentsAlpha() {
-        List<Student> studentsAsList = new ArrayList<>(students.values());
+    public List<Student> getStudentsOrderByName() {
+        List<Student> studentsAsList = new ArrayList<>(studentMap.values());
         return studentsAsList.stream().sorted(new StudentComparator()).toList();
     }
 

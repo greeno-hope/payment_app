@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +14,7 @@ class PaymentTest {
 
     @BeforeEach
     void setUp() {
-        payment = new Payment(Month.SEPTEMBER, 200.50);
+        payment = new Payment(Month.SEPTEMBER, 200.50, new Date());
     }
 
     @Test

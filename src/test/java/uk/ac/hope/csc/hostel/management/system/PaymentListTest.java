@@ -4,21 +4,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PaymentListTest {
+class PaymentsTest {
 
-    PaymentList pl;
+    Payments pl;
 
     @BeforeEach
     void setUp() {
-        pl = new PaymentList();
-        pl.addPayment(new Payment(Month.SEPTEMBER, 200.50));
-        pl.addPayment(new Payment(Month.OCTOBER, 200.50));
-        pl.addPayment(new Payment(Month.NOVEMBER, 200.50));
-        pl.addPayment(new Payment(Month.DECEMBER, 200.50));
-        pl.addPayment(new Payment(Month.JANUARY, 200.50));
+        pl = new Payments();
+        pl.addPayment(new Payment(Month.SEPTEMBER, 200.50, new Date()));
+        pl.addPayment(new Payment(Month.OCTOBER, 200.50, new Date()));
+        pl.addPayment(new Payment(Month.NOVEMBER, 200.50, new Date()));
+        pl.addPayment(new Payment(Month.DECEMBER, 200.50, new Date()));
+        pl.addPayment(new Payment(Month.JANUARY, 200.50, new Date()));
     }
 
     @Test
@@ -28,18 +29,18 @@ class PaymentListTest {
 
     @Test
     void addPayment() {
-        pl.addPayment(new Payment(Month.FEBRUARY, 200.50));
+        pl.addPayment(new Payment(Month.FEBRUARY, 200.50, new Date()));
         assertEquals(6, pl.getPaymentCount());
     }
 
     @Test
     void addInvalidPayment() {
-        assertThrows(IllegalArgumentException.class, () -> pl.addPayment(new Payment(Month.SEPTEMBER, 100.00)));
+        assertThrows(IllegalArgumentException.class, () -> pl.addPayment(new Payment(Month.SEPTEMBER, 100.00, new Date())));
     }
 
     @Test
     void getPayments() {
-        assertEquals(5, pl.getPayments().size());
+        assertEquals(5, pl.getPaymentsList().size());
     }
 
     @Test
