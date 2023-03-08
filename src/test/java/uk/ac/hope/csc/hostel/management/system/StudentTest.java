@@ -3,6 +3,9 @@ package uk.ac.hope.csc.hostel.management.system;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Month;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentTest {
@@ -52,10 +55,14 @@ class StudentTest {
 
     @Test
     void addPayment() {
+        Payment p = new Payment(Month.SEPTEMBER, 200.50, new Date());
+        s1.addPayment(p);
+        assertEquals(1, s1.getPayments().getPaymentsList().size());
     }
 
     @Test
     void testToString() {
+        assertNotNull(s1.toString());
     }
 
     @Test

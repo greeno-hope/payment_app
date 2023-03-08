@@ -86,6 +86,9 @@ public class Rooms implements Serializable {
      * @return the Room which has that roomNumber.
      */
     public Room getRoomByRoomNumber(int roomNumber) {
+        if(roomNumber < 1 || roomNumber > roomList.size()) {
+            throw new IndexOutOfBoundsException("Room number out of bounds");
+        }
         return roomList.get(roomNumber-1);
     }
 

@@ -99,7 +99,7 @@ public class Student implements Serializable, Comparable {
                 "sid=" + sid +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
-                ", roomNumber=" + room.getRoomNumber() +
+                ", roomNumber=" + (room != null ? room.getRoomNumber() : null ) +
                 ", payments=" + payments +
                 '}';
     }

@@ -29,5 +29,6 @@ class PaymentTest {
 
     @Test
     void testToString() {
+        assertNotNull(payment.toString());
     }
 }
