@@ -1,5 +1,7 @@
 package uk.ac.hope.csc.hostel.management.system;
 
+import java.io.File;
+import java.net.URL;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -13,7 +15,13 @@ public class Main {
         // load previously saved state (command line argument)
         if(args.length > 0) {
             if (args[0].equals("-init")) {
-                hms.init();
+
+                URL url = hms.getClass().getClassLoader().getResource("rooms.csv");
+                File roomsFile = new File(url.getFile());
+                url = hms.getClass().getClassLoader().getResource("students.csv");
+                File studentsFile = new File(url.getFile());
+                hms.init(roomsFile, studentsFile);
+
             } else {
                 throw new InvalidParameterException("Only -init supported as a command line argument");
             }

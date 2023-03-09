@@ -3,6 +3,8 @@ package uk.ac.hope.csc.hostel.management.system;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.net.URL;
 import java.time.Month;
 import java.util.Date;
 
@@ -15,7 +17,11 @@ class HManagementSystemTest {
     @BeforeEach
     void setUp() {
         hms = new HManagementSystem();
-        hms.init();
+        URL url = hms.getClass().getClassLoader().getResource("rooms.csv");
+        File roomsFile = new File(url.getFile());
+        url = hms.getClass().getClassLoader().getResource("students.csv");
+        File studentsFile = new File(url.getFile());
+        hms.init(roomsFile, studentsFile);
     }
 
     @Test

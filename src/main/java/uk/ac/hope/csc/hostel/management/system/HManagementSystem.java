@@ -39,12 +39,12 @@ public class HManagementSystem implements Serializable {
      * Called once to set up some initial Rooms and Students from
      * some .csv files
      */
-    public void init() {
+    public void init(File roomsFile, File studentsFile ) {
         // Read the fake Rooms data
         Random random = new Random(4);
         try {
-            initCreateRooms();
-            initAddStudents(random);
+            initCreateRooms(roomsFile);
+            initAddStudents(studentsFile, random);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -178,10 +178,8 @@ public class HManagementSystem implements Serializable {
      * Initializer functions - load fake data from the csv files
      *
      *************************************************************************/
-    public void initCreateRooms() throws IOException{
+    public void initCreateRooms(File file) throws IOException{
 
-        URL url = this.getClass().getClassLoader().getResource("rooms.csv");
-        File file = new File(url.getFile());
         List<String> lines = Files.readAllLines(file.toPath());
         lines.remove(0);
         for(String line: lines) {
@@ -193,10 +191,8 @@ public class HManagementSystem implements Serializable {
         }
     }
 
-    public void initAddStudents(Random random) throws IOException {
+    public void initAddStudents(File file, Random random) throws IOException {
 
-        URL url = this.getClass().getClassLoader().getResource("students.csv");
-        File file = new File(url.getFile());
         List<String> lines = Files.readAllLines(file.toPath());
         lines.remove(0);
         for(String line: lines) {
