@@ -1,14 +1,15 @@
 package uk.ac.hope.csc.hostel.management.system;
 
-import com.opencsv.CSVReader;
+import java.io.*;
 
-import java.io.FileReader;
-import java.io.Serializable;
+import java.net.URL;
+import java.nio.file.Files;
 import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
 import java.util.Random;
+import java.util.stream.Stream;
 
 /**
  * This class represents the 'entry point' for the HManagementSystem.
@@ -41,8 +42,12 @@ public class HManagementSystem implements Serializable {
     public void init() {
         // Read the fake Rooms data
         Random random = new Random(4);
-        initCreateRooms();
-        initAddStudents(random);
+        try {
+            initCreateRooms();
+            initAddStudents(random);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     /**
@@ -173,42 +178,39 @@ public class HManagementSystem implements Serializable {
      * Initializer functions - load fake data from the csv files
      *
      *************************************************************************/
-    public void initCreateRooms() {
+    public void initCreateRooms() throws IOException{
 
-        String fileName = "./startup_data/rooms.csv";
-        try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
-            List<String[]> r = reader.readAll();
-            r.remove(0);
-            for (String[] sa : r) {
-                int roomNumber = Integer.parseInt(sa[0]);
-                Room.ROOM_TYPE type = getType(sa[1]);
-                double rate = Double.valueOf(sa[2]);
-                rooms.addRoom(new Room(roomNumber, rate, type));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        URL url = this.getClass().getClassLoader().getResource("rooms.csv");
+        File file = new File(url.getFile());
+        List<String> lines = Files.readAllLines(file.toPath());
+        lines.remove(0);
+        for(String line: lines) {
+            String[] values = line.split(",");
+            int roomNumber = Integer.parseInt(values[0]);
+            Room.ROOM_TYPE type = getType(values[1]);
+            double rate = Double.valueOf(values[2]);
+            rooms.addRoom(new Room(roomNumber, rate, type));
         }
     }
 
-    public void initAddStudents(Random random) {
-        String fileName = "./startup_data/students.csv";
-        try (CSVReader reader = new CSVReader(new FileReader(fileName))) {
-            List<String[]> s = reader.readAll();
-            s.remove(0);
-            for (String[] sa : s) {
-                // Make a student
-                String fname = sa[0];
-                String lname = sa[1];
-                int sid = Integer.parseInt(sa[2]);
-                Student student = new Student(sid, fname, lname);
-                // Get the empty rooms
-                List<Room> emptyRooms = rooms.getFreeRoomsAsList();
-                int size = emptyRooms.size();
-                int index = random.nextInt(0, size-1);
-                addStudentTenant(student, emptyRooms.get(index));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void initAddStudents(Random random) throws IOException {
+
+        URL url = this.getClass().getClassLoader().getResource("students.csv");
+        File file = new File(url.getFile());
+        List<String> lines = Files.readAllLines(file.toPath());
+        lines.remove(0);
+        for(String line: lines) {
+            String[] values = line.split(",");
+            // Make a student
+            String fname = values[0];
+            String lname = values[1];
+            int sid = Integer.parseInt(values[2]);
+            Student student = new Student(sid, fname, lname);
+            // Get the empty rooms
+            List<Room> emptyRooms = rooms.getFreeRoomsAsList();
+            int size = emptyRooms.size();
+            int index = random.nextInt(0, size-1);
+            addStudentTenant(student, emptyRooms.get(index));
         }
     }
 
